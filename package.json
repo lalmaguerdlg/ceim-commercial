@@ -2,5 +2,8 @@
   "name": "ceim-commercial",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+     "sass": "sass --watch template/scss/style.scss template/css/style.css"
+  }
 }
