@@ -617,7 +617,15 @@ button:focus {
   }
 }
 
+.features {
+  height: auto;
+}
+
 .single_feature {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   position: relative;
   background: #f9f9ff;
   padding: 40px 36px;
@@ -659,6 +667,9 @@ button:focus {
   .popular_courses {
     padding-bottom: 40px;
   }
+}
+.popular_courses .owl-carousel .owl-stage {
+  display: flex;
 }
 .popular_courses .owl-item {
   opacity: 0;
@@ -708,6 +719,10 @@ button:focus {
 }
 
 .single_course {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
@@ -755,6 +770,10 @@ button:focus {
   transition: all 0.3s ease 0s;
 }
 .single_course .course_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 30px 26px;
   background: #f9f9ff;
   position: relative;
