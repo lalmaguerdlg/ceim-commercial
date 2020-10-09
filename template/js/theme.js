@@ -12,9 +12,9 @@
       $(window).scroll(function() {
         var scroll = $(window).scrollTop();
         if (scroll >= nav_offset_top) {
-          $(".floating-button").addClass("show");
+          $(".floating-button").addClass("visible");
         } else {
-          $(".floating-button").removeClass("show");
+          $(".floating-button").removeClass("visible");
         }
       });
     }

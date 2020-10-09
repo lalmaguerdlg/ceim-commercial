@@ -4214,8 +4214,11 @@ h6 {
   transition: all 0.4s ease-in-out;
   opacity: 0;
 }
-.floating-button.show {
+.floating-button.visible {
   opacity: 1;
+}
+.floating-button.always-visible {
+  opacity: 1 !important;
 }
 
 /*# sourceMappingURL=style.css.map */
