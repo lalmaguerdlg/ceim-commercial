@@ -4206,5 +4206,16 @@ h6 {
 }
 
 /*---------------------------------------------------- */
+.floating-button {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1;
+  transition: all 0.4s ease-in-out;
+  opacity: 0;
+}
+.floating-button.show {
+  opacity: 1;
+}
 
 /*# sourceMappingURL=style.css.map */

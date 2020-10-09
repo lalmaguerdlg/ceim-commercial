@@ -1,7 +1,26 @@
 (function($) {
   "use strict";
-
+  
   var nav_offset_top = $("header").height() + 50;
+  /*-------------------------------------------------------------------------------
+	  Navbar 
+	-------------------------------------------------------------------------------*/
+
+  //* Navbar Fixed
+  function floatingButton() {
+    if ($(".floating-button").length) {
+      $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        if (scroll >= nav_offset_top) {
+          $(".floating-button").addClass("show");
+        } else {
+          $(".floating-button").removeClass("show");
+        }
+      });
+    }
+  }
+  floatingButton();
+
   /*-------------------------------------------------------------------------------
 	  Navbar 
 	-------------------------------------------------------------------------------*/
