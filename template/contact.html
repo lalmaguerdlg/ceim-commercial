@@ -79,10 +79,10 @@
           <div class="row justify-content-center">
             <div class="col-lg-6">
               <div class="banner_content text-center">
-                <h2>Contact Us</h2>
+                <h2>Contacto</h2>
                 <div class="page_link">
-                  <a href="index.html">Home</a>
-                  <a href="contact.html">Contact</a>
+                  <a href="index.html">Inicio</a>
+                  <a href="contact.html">Contacto</a>
                 </div>
               </div>
             </div>
@@ -95,43 +95,43 @@
     <!--================Contact Area =================-->
     <section class="contact_area section_gap">
       <div class="container">
-        <div
-          id="mapBox"
-          class="mapBox"
-          data-lat="40.701083"
-          data-lon="-74.1522848"
-          data-zoom="13"
-          data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
-          data-mlat="40.701083"
-          data-mlon="-74.1522848"
-        ></div>
+        <div class="map-responsive mb-5">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.588001081413!2d-100.29911148474056!3d25.684948783671654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662957bac94ed65%3A0x4e558d0f6ee4515b!2sAv.%20F%C3%A9lix%20Uresti%20G%C3%B3mez%20Nte.%201310%2C%20Terminal%2C%2064580%20Monterrey%2C%20N.L.!5e0!3m2!1sen!2smx!4v1602207011795!5m2!1sen!2smx" 
+          frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+
         <div class="row">
           <div class="col-lg-3">
             <div class="contact_info">
               <div class="info_item">
                 <i class="ti-home"></i>
-                <h6>California, United States</h6>
-                <p>Santa monica bullevard</p>
+                <h6>Monterrey</h6>
+                <p>Nuevo León, México</p>
               </div>
               <div class="info_item">
                 <i class="ti-headphone"></i>
-                <h6><a href="#">00 (440) 9865 562</a></h6>
-                <p>Mon to Fri 9am to 6 pm</p>
+                <h6><a href="#">(+52) 81 8374 9001</a></h6>
+                <p></p>
+              </div>
+              <div class="info_item">
+                <i class="fab fa-whatsapp"></i>
+                <h6><a href="#">(+52) 81 1074 1639</a></h6>
+                <p></p>
               </div>
               <div class="info_item">
                 <i class="ti-email"></i>
-                <h6><a href="#">support@colorlib.com</a></h6>
-                <p>Send us your query anytime!</p>
+                <h6><a href="#">atencion.ceim@gmail.com</a></h6>
+                <p>Envianos tus dudas en cualquier momento.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-9">
             <form
-              class="row contact_form"
-              action="contact_process.php"
-              method="post"
               id="contactForm"
+              class="row contact_form"
+              method="POST"
               novalidate="novalidate"
+              onsubmit="return false"
             >
               <div class="col-md-6">
                 <div class="form-group">
@@ -140,9 +140,9 @@
                     class="form-control"
                     id="name"
                     name="name"
-                    placeholder="Enter your name"
+                    placeholder="Ingresa tu nombre"
                     onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter your name'"
+                    onblur="this.placeholder = 'Ingresa tu nombre'"
                     required=""
                   />
                 </div>
@@ -152,9 +152,9 @@
                     class="form-control"
                     id="email"
                     name="email"
-                    placeholder="Enter email address"
+                    placeholder="Ingresa tu correo electrónico"
                     onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter email address'"
+                    onblur="this.placeholder = 'Ingresa tu correo electrónico'"
                     required=""
                   />
                 </div>
@@ -164,10 +164,9 @@
                     class="form-control"
                     id="subject"
                     name="subject"
-                    placeholder="Enter Subject"
+                    placeholder="Ingresa el motivo de tu mensaje"
                     onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter Subject'"
-                    required=""
+                    onblur="this.placeholder = 'Ingresa el motivo de tu mensaje'"
                   />
                 </div>
               </div>
@@ -178,9 +177,9 @@
                     name="message"
                     id="message"
                     rows="1"
-                    placeholder="Enter Message"
+                    placeholder="Ingresa tu duda o mensaje"
                     onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = 'Enter Message'"
+                    onblur="this.placeholder = 'Ingresa tu duda o mensaje'"
                     required=""
                   ></textarea>
                 </div>
@@ -228,8 +227,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             >
               <i class="ti-close"></i>
             </button>
-            <h2>Thank you</h2>
-            <p>Your message is successfully sent...</p>
+            <h2>¡Gracias!</h2>
+            <p>Tu mensaje ha sido enviado correctamente</p>
+            <p>Nos pondremos en contacto contigo</p>
           </div>
         </div>
       </div>
@@ -249,8 +249,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             >
               <i class="ti-close"></i>
             </button>
-            <h2>Sorry !</h2>
-            <p>Something went wrong</p>
+            <h2>Una disculpa</h2>
+            <p>Algo ha salido mal.</p>
+            <p>Por favor, vuelve a intenarlo más tarde</p>
           </div>
         </div>
       </div>
@@ -276,8 +277,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery.ajaxchimp.min.js"></script>
     <script src="js/mail-script.js"></script>
     <!--gmaps Js-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-    <script src="js/gmaps.min.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="js/gmaps.min.js"></script> -->
     <script src="js/contact.js"></script>
     <script src="js/theme.js"></script>
   </body>
