@@ -4,6 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-     "sass": "sass --watch template/scss/style.scss template/css/style.css"
+    "sass": "sass --watch static/scss/style.scss static/css/style.css",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }
