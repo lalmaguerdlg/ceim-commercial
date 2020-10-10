@@ -1,0 +1,16 @@
+.floating-button {
+    position: fixed;
+    // width: 60px;
+    // height: 60px;
+    bottom: 40px;
+    right: 40px;
+    z-index: 1;
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+    &.visible {
+        opacity: 1;
+    }
+    &.always-visible {
+        opacity: 1 !important;
+    }
+}
