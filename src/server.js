@@ -20,26 +20,30 @@ const staticRoutes = [
     '/index', '/contact', '/about-us',
 ]
 
-app.get('*', (req, res, next) => {
-    let found = false;
-    for(let item of staticRoutes) {
-        let route = { path: '', file: ''};
-        if(typeof item === 'string') {
-            route.path = item;
-            route.file = item + '.html';
-        } else {
-            route = item;
+function cleanRoutes(routes, publicDir) {
+    return (req, res, next) => {
+        let found = false;
+        for(let item of routes) {
+            let route = { path: '', file: ''};
+            if(typeof item === 'string') {
+                route.path = item;
+                route.file = item + '.html';
+            } else {
+                route = item;
+            }
+    
+            if(route.path === req.path) {
+                res.sendFile( path.join(publicDir, route.file) );
+                found = true;
+                break;
+            }
         }
-
-        if(route.path === req.path) {
-            res.sendFile( path.join(PUBLIC_DIR, route.file) );
-            found = true;
-            break;
-        }
+    
+        if(!found) next();
     }
+}
 
-    if(!found) next();
-});
+app.use(cleanRoutes(staticRoutes, PUBLIC_DIR));
 
 // fallback: route not found
 app.get('*', (req, res) => {
