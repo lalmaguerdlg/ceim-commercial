@@ -1,54 +1,23 @@
-const path = require('path');
+require('dotenv').config();
 const express = require('express');
-const { URL } = require('url');
+const body_parser = require('body-parser');
 
 const app = express();
+const mailer = require('./mailer');
+const web = require('./web');
 
 const PORT = 3000;
-const ROOT_DIR = path.join(__dirname, '..');
-const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 
-app.get('/*.html', (req, res) => {
-    const redirectUrl = req.path.replace('.html', '');
-    res.redirect(redirectUrl);
+
+app.use(body_parser.urlencoded({ extended: true }));
+app.use(body_parser.json());
+
+app.use('/', web );
+app.use('/mail', mailer );
+
+app.post('*', function(req, res) {
+    res.status(404).send({ error: 404, message: 'Not found'});
 });
-
-app.use(express.static(PUBLIC_DIR));
-
-
-const staticRoutes = [
-    '/index', '/contact', '/about-us',
-]
-
-function cleanRoutes(routes, publicDir) {
-    return (req, res, next) => {
-        let found = false;
-        for(let item of routes) {
-            let route = { path: '', file: ''};
-            if(typeof item === 'string') {
-                route.path = item;
-                route.file = item + '.html';
-            } else {
-                route = item;
-            }
-    
-            if(route.path === req.path) {
-                res.sendFile( path.join(publicDir, route.file) );
-                found = true;
-                break;
-            }
-        }
-    
-        if(!found) next();
-    }
-}
-
-app.use(cleanRoutes(staticRoutes, PUBLIC_DIR));
-
-// fallback: route not found
-app.get('*', (req, res) => {
-    res.sendFile(path.join(PUBLIC_DIR, '/404.html'));
-})
 
 app.listen(PORT, () => {
     console.log(`ceim-commercial service running on port ${PORT}`);
