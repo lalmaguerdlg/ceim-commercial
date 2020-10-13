@@ -1,0 +1,25 @@
+h1 #{name} ha enviado un mensaje
+
+hr
+
+if subject
+  h2 #{subject}
+else 
+  h2 Sin asunto
+
+p #{ message }
+
+hr
+
+h4 Información de contacto
+table
+  tr
+    td <b>Nombre: </b>
+    td #{name}
+  tr
+    td <b>Email: </b>
+    td #{email}
+  if phone
+    tr
+      td <b>Teléfono: </b>
+      td #{phone}

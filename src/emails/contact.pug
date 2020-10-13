@@ -1,0 +1,17 @@
+h2 #{name} se encuentra interesado
+
+p #{name} ha indicado que quiere recibir más información.
+
+h4 Información de contacto
+table
+  tr
+    td <b>Nombre: </b>
+    td #{name}
+  tr
+    td <b>Email: </b>
+    td #{email}
+  if phone
+    tr
+      td <b>Teléfono: </b>
+      td #{phone}
+

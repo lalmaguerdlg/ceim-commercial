@@ -4,5 +4,5 @@ module.exports = {
     SMTP_USE_SSL: process.env.SMTP_USE_SSL || 'false',
     SMTP_USER: process.env.SMTP_USER,
     SMTP_PASSWORD: process.env.SMTP_PASSWORD,
-    EMAIL_NOTIFICATIONS: process.env.EMAIL_NOTIFICATIONS,
+    SEND_NOTIFICATIONS_TO: process.env.SEND_NOTIFICATIONS_TO || '',
 };
