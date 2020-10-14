@@ -3,6 +3,7 @@
 /.sass-cache
 .DS_store
 *.css.map
+/database
 
 # Logs
 logs

@@ -5,6 +5,8 @@ const pug = require('pug');
 const path = require('path')
 const env = require('./env');
 
+const Contact = require('./models/contact');
+
 const router = express.Router();
 
 const EMAILS_DIR = path.join(__dirname, 'emails');
@@ -48,6 +50,8 @@ if (email_to_admin_template.to.length === 0) {
 }
 
 function sendEmails(emails) {
+    if ( env.SEND_EMAILS === 'false' ) return false; 
+
     function sendEmail(email) {
         return transporter.sendMail({ ...email })
             .then(info => console.log( `[${new Date().toUTCString()}] Email ${info.messageId} sent to ${email.to}`));
@@ -73,11 +77,23 @@ function validateForm(req, res, next) {
     next();
 }
 
+async function saveContact(req, res, next) {
+    try {
+        const contact = new Contact({ ...req.body });
+        await contact.save();
+    }
+    catch (err) {
+        console.error(`[ERROR] attempting to save ${req.body} failed`, err);
+        return res.status(500).json({ status: 500, message: 'Internal server error' });
+    }
+    next();
+}
+
 router.post('/contact', [
     body('name').notEmpty({ignore_whitespace: true}).trim().escape(),
     body('email').trim().isEmail(),
     body('phone').trim(), //.isMobilePhone('es-MX'), we can maybe validate for only mexican phones
-], validateForm, async (req, res) => {
+], validateForm, saveContact, async (req, res) => {
 
     const emails = [];
     if ( email_to_admin_template.to.length > 0) {
@@ -110,8 +126,8 @@ router.post('/message', [
     body('email').trim().isEmail(),
     body('subject').trim().escape(),
     body('message').notEmpty({ignore_whitespace: true}).trim().escape(),
-], validateForm, async (req, res) => {
-    
+], validateForm, saveContact, async (req, res) => {
+
     const emails = [];
     if ( email_to_admin_template.to.length > 0) {
         emails.push(new Email({
