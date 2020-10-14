@@ -1,5 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const yup = require('yup');
 const nodemailer = require('nodemailer');
 const pug = require('pug');
 const path = require('path')
@@ -69,31 +70,38 @@ function sendEmails(emails) {
     return Promise.all(promises);
 }
 
-function validateForm(req, res, next) {
-    const errors = validationResult(req);
-    if( !errors.isEmpty() ){
-        return res.status(400).json({ status: 400, message: "Validation error", errors: errors.array() });
-    }
-    next();
-}
-
 async function saveContact(req, res, next) {
     try {
         const contact = new Contact({ ...req.body });
-        await contact.save();
+        const doc = await contact.save();
+        res.locals.contact = doc;
     }
     catch (err) {
-        console.error(`[ERROR] attempting to save ${req.body} failed`, err);
+        console.error(`[ERROR] attempting to save ${JSON.stringify(req.body)} failed`, err);
         return res.status(500).json({ status: 500, message: 'Internal server error' });
     }
     next();
 }
 
-router.post('/contact', [
-    body('name').notEmpty({ignore_whitespace: true}).trim().escape(),
-    body('email').trim().isEmail(),
-    body('phone').trim(), //.isMobilePhone('es-MX'), we can maybe validate for only mexican phones
-], validateForm, saveContact, async (req, res) => {
+function validateSchema(schema) {
+    return async (req, res, next) => {
+        try {
+            const result = await schema.validate({ ...req.body });
+            req.body = { ...result };
+        } catch(err) {
+            return res.status(500).json({ status: 400, message: 'Validation Error', errors: err.errors });
+        }
+        next();
+    }
+}
+
+const contact_request = yup.object().shape({
+    name: yup.string().required().trim(),
+    email: yup.string().required().email(),
+    phone: yup.string().trim()
+});
+router.post('/contact', validateSchema(contact_request), saveContact,
+    async (req, res) => {
 
     const emails = [];
     if ( email_to_admin_template.to.length > 0) {
@@ -114,19 +122,20 @@ router.post('/contact', [
 
     try {
         await sendEmails(emails);
-        res.status(200).json({ status: 200, message: "Email sent" });
+        res.status(200).json({ status: 200, message: "Email sent", contact: res.locals.contact });
     } catch(err) {
         console.error(err);
         res.status(500).json({ status: 500, message: "An error occurred when trying to send an email" });
     }
 });
 
-router.post('/message', [
-    body('name').notEmpty({ignore_whitespace: true}).trim().escape(),
-    body('email').trim().isEmail(),
-    body('subject').trim().escape(),
-    body('message').notEmpty({ignore_whitespace: true}).trim().escape(),
-], validateForm, saveContact, async (req, res) => {
+const messate_request = yup.object().shape({
+    name: yup.string().required().trim(),
+    email: yup.string().required().email(),
+    subject: yup.string().trim(),
+    message: yup.string().required().trim(),
+});
+router.post('/message', validateSchema(messate_request), saveContact, async (req, res) => {
 
     const emails = [];
     if ( email_to_admin_template.to.length > 0) {
@@ -147,7 +156,7 @@ router.post('/message', [
 
     try {
         await sendEmails(emails);
-        res.status(200).json({ status: 200, message: "Email sent" });
+        res.status(200).json({ status: 200, message: "Email sent", contact: res.locals.contact  });
     } catch(err) {
         console.error(err);
         res.status(500).json({ status: 500, message: "An error occurred when trying to send an email" });
