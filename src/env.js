@@ -7,5 +7,5 @@ module.exports = {
     SMTP_PASSWORD: process.env.SMTP_PASSWORD,
     SEND_EMAILS: process.env.SEND_EMAILS || 'true',
     SEND_NOTIFICATIONS_TO: process.env.SEND_NOTIFICATIONS_TO || '',
-    MONGO_DB: process.env.MONGO_DB || '',
+    MONGODB_URI: process.env.MONGODB_URI || '',
 };

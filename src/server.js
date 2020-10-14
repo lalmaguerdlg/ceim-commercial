@@ -2,7 +2,7 @@ require('dotenv').config();
 const argv = require('minimist')(process.argv.slice(2));
 const express = require('express');
 const { PORT } = require('./env');
-const db = require('./db'); // This initialices the mongodb connection
+require('./db')(); // This initialices the mongodb connection
 
 const app = express();
 const mailer = require('./mailer');

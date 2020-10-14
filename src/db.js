@@ -1,15 +1,35 @@
 const mongoose = require('mongoose');
-const { MONGO_DB } = require('./env');
+const { MONGODB_URI } = require('./env');
 
-if (MONGO_DB === '') {
-    throw new Error('[Error] MongoDB uri not specified');
+if (MONGODB_URI === '') {
+    throw new Error('[ERROR] MongoDB uri not specified');
 }
 
-mongoose.connect(MONGO_DB, {useNewUrlParser: true, useUnifiedTopology: true});
+function connect({ retryAttempts = -1, retryTimeout = 5000 } = {}) {
+    let attempts = 0;
 
-const db = mongoose.connection;
+    function _connect() {
+        mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}, (error) => {
+            if(error) {
+                if ( retryAttempts < 0 || attempts <= retryAttempts) {
+                    console.error(`[ERROR] MongoDB connection could not be established, retrying on ${retryTimeout} ms`)
+                    setTimeout(_connect, retryTimeout);
+                } else if( retryAttempts >= 0 && attempts >= retryAttempts ) {
+                    throw new Error('[ERROR] Could not establish connection with MongoDB');
+                }
+            }
+            else {
+                mongoose.set('bufferCommands', true);
+            }
+        });
+        attempts++;
+    }
+    mongoose.set('bufferCommands', false);
+    _connect();
+}
 
-db.on('open', (...args) => console.log('MongoDB connected', ...args) );
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-module.exports = db;
+mongoose.connection.on('open', (...args) => console.log('MongoDB connected', ...args) );
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+module.exports = connect;
