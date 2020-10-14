@@ -16,7 +16,7 @@ app.use('/', web );
 app.use('/mail', mailer );
 
 app.post('*', function(req, res) {
-    res.status(404).send({ status: 404, message: 'Not found'});
+    res.status(404).json({ status: 404, message: 'Not found'});
 });
 
 app.listen(PORT, () => {
