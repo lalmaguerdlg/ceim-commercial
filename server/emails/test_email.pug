@@ -1,0 +1,40 @@
+hr
+h2 Email #{created_at}
+
+table
+  tr
+    td <b>_id:</b>
+    td #{_id}
+  tr
+    td <b>created_at:</b>
+    td #{created_at}
+  tr
+    td <b>status:</b>
+    td #{status}
+  tr
+    td <b>sent_at:</b>
+    td #{sent_at}
+  tr
+    td <b>attempts:</b>
+    td #{attempts}
+  tr
+    td <b>last_attempt_at:</b>
+    td #{last_attempt_at}
+
+h4 Data
+
+table
+  if message
+    tr
+      td <b>message: </b>
+      td #{message}
+  tr
+    td <b>name: </b>
+    td #{name}
+  tr
+    td <b>email: </b>
+    td #{email}
+  if phone
+    tr
+      td <b>phone: </b>
+      td #{phone}

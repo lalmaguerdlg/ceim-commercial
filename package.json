@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "sass": "sass --watch static/scss/style.scss static/css/style.css",
-    "dev": "nodemon src/server.js -- ",
-    "start": "node src/server.js"
+    "dev": "nodemon server/server.js -- ",
+    "emails": "nodemon server/index.js -- ",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "dotenv": "^8.2.0",

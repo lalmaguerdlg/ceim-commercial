@@ -5,7 +5,7 @@ if (MONGODB_URI === '') {
     throw new Error('[ERROR] MongoDB uri not specified');
 }
 
-function connect({ retryAttempts = -1, retryTimeout = 5000 } = {}) {
+function connect({ retryAttempts = -1, retryTimeout = 5000, buffer = false } = {}) {
     let attempts = 0;
 
     function _connect() {
@@ -19,12 +19,14 @@ function connect({ retryAttempts = -1, retryTimeout = 5000 } = {}) {
                 }
             }
             else {
-                mongoose.set('bufferCommands', true);
+                if(!buffer)
+                    mongoose.set('bufferCommands', true);
             }
         });
         attempts++;
     }
-    mongoose.set('bufferCommands', false);
+    if(!buffer)
+        mongoose.set('bufferCommands', false);
     _connect();
 }
 
