@@ -8,4 +8,5 @@ module.exports = {
     SEND_EMAILS: process.env.SEND_EMAILS || 'true',
     SEND_NOTIFICATIONS_TO: process.env.SEND_NOTIFICATIONS_TO || '',
     MONGODB_URI: process.env.MONGODB_URI || '',
+    QUEUE_WORKER_COUNT: process.env.QUEUE_WORKER_COUNT || 0,
 };
