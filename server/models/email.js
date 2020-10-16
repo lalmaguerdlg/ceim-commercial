@@ -10,10 +10,16 @@ const EmailSchema = new mongoose.Schema({
         data: Object,
     },
     created_at: { type: Date, default: Date.now() },
-    status: { type: String, enum: ['New', 'Processing', 'Failed', 'Sent'], default: 'New' },
+    status: { type: String, enum: ['new', 'processing', 'failed', 'retrying', 'sent'], default: 'new' },
     sent_at: Date,
     attempts: { type: Number, default: 0 },
     last_attempt_at: Date,
-}, { collection: 'emails' } );
+    error_message: String,
+});
 
-module.exports = mongoose.model('Email', EmailSchema);
+
+
+module.exports = {
+    Email: mongoose.model('Email', EmailSchema),
+    FailedEmail: mongoose.model('FailedEmail', EmailSchema)
+} 

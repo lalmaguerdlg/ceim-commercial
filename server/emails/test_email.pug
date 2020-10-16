@@ -20,6 +20,10 @@ table
   tr
     td <b>last_attempt_at:</b>
     td #{last_attempt_at}
+  if error_message
+    tr
+      td <b>error_message</b>
+      td #{error_message}
 
 h4 Data
 

@@ -30,7 +30,7 @@ function connect({ retryAttempts = -1, retryTimeout = 5000, buffer = false } = {
     _connect();
 }
 
-
+mongoose.set('useFindAndModify', false);
 mongoose.connection.on('open', (...args) => console.log('MongoDB connected', ...args) );
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
