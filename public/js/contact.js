@@ -13,48 +13,22 @@ $(document).ready(function(){
                     required: true,
                     minlength: 2
                 },
-                // subject: {
-                //     required: true,
-                //     minlength: 4
-                // },
-                // number: {
-                //     required: true,
-                //     minlength: 5
-                // },
                 email: {
                     required: true,
                     email: true
                 },
-                message: {
-                    required: true,
-                    minlength: 4,
-                    maxlength: 250,
-                }
             },
             messages: {
                 name: {
                     required: "El nombre es requerido",
                     minlength: "El nombre debe conter mínimo 2 caracteres"
                 },
-                // subject: {
-                //     required: "come on, you have a subject, don't you?",
-                //     minlength: "your subject must consist of at least 4 characters"
-                // },
-                // number: {
-                //     required: "come on, you have a number, don't you?",
-                //     minlength: "your Number must consist of at least 5 characters"
-                // },
                 email: {
                     required: "El correo es requerido"
                 },
-                message: {
-                    required: "El mensaje es requerido",
-                    minlength: "El mensaje debe conter mínimo 4 caracteres",
-                    maxlenght: "El mensaje no debe contener más de 250 caracteres"
-                }
             },
             submitHandler: function(form) {
-                console.log($(form).serialize());
+                $('#submitContact').replaceWith('<p class="processing">Enviando...</p>');
                 $.ajax({
                     type:"POST",
                     data: $(form).serialize(),

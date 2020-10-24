@@ -6,7 +6,7 @@ const ROOT_DIR = path.join(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 
 const staticRoutes = [
-    '/index', '/contact', '/about-us',
+    { path: '/index', redirect: '/'}, '/contact', '/about-us',
 ]
 
 function cleanRoutes(routes, publicDir) {
@@ -22,7 +22,12 @@ function cleanRoutes(routes, publicDir) {
             }
     
             if(route.path === req.path) {
-                res.sendFile( path.join(publicDir, route.file) );
+                if(route.redirect) {
+                    res.redirect(route.redirect);
+                }
+                else {
+                    res.sendFile( path.join(publicDir, route.file) );
+                }
                 found = true;
                 break;
             }
