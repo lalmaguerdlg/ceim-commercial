@@ -9,7 +9,24 @@ const app = express();
 const mailer = require('./mailer');
 const web = require('./web');
 
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: {
+    directives: {
+        'default-src': ["'self'"],
+        'base-uri': ["'self'"],
+        'block-all-mixed-content': [],
+        'font-src': ["'self'", 'https:', 'data:'],
+        'frame-ancestors': ["'self'"],
+        'frame-src': ["'self'", '*.google.com'],
+        'img-src': ["'self'", 'data:', ],
+        'object-src': ['none'],
+        'script-src': ["'self'", "'unsafe-inline'"],
+        'script-src-attr': ['none'],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'style-src-elem': ["'self'", 'https:', "'unsafe-inline'"],
+        'upgrade-insecure-requests': []
+    }
+} }));
+// app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
