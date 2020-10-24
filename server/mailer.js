@@ -1,5 +1,4 @@
 const express = require('express');
-const { body, validationResult } = require('express-validator');
 const yup = require('yup');
 const nodemailer = require('nodemailer');
 const pug = require('pug');
