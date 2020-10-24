@@ -43,7 +43,7 @@ router.use( cleanRoutes(staticRoutes, PUBLIC_DIR) );
 
 // fallback: route not found
 router.get('/*', (req, res) => {
-    res.sendFile(path.join(PUBLIC_DIR, '/404.html'));
+    res.status(404).sendFile(path.join(PUBLIC_DIR, '/404.html'));
 })
 
 module.exports = router;
