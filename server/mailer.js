@@ -106,7 +106,7 @@ router.post('/contact', validateSchema(contact_request), saveContact,
     if ( email_to_admin_template.to.length > 0) {
         emails.push(new Email({
             ...email_to_admin_template,
-            subject: `Solicitud de contacto de ${body.email}`,
+            subject: `Solicitud de contacto de ${req.body.email}`,
             html: templates.contact( {...req.body} )
         }))
     }
