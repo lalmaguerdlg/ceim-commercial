@@ -1,3 +1,4 @@
 {
-    "delay": "200"
+    "delay": "200",
+    "ignore": ["node_modules", ".next", "pages"]
 }

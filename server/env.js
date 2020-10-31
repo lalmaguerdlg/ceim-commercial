@@ -1,5 +1,6 @@
 module.exports = {
-    PORT: process.env.PORT || 3000,
+    PORT: parseInt(process.env.PORT,10) || 3000,
+    NODE_ENV: process.env.NODE_ENV || 'develop',
     SMTP_HOST: process.env.SMTP_HOST,
     SMTP_PORT: process.env.SMTP_PORT,
     SMTP_USE_SSL: process.env.SMTP_USE_SSL || 'false',

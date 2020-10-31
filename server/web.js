@@ -37,18 +37,22 @@ function cleanRoutes(routes, publicDir) {
     }
 }
 
+router.get('/', (req, res) => {
+    res.status(200).sendFile( path.join(PUBLIC_DIR, 'index.html'));
+});
+
 router.get('/*.html', (req, res) => {
     const redirectUrl = req.path.replace('.html', '');
     res.redirect(redirectUrl);
 });
 
-router.use( express.static(PUBLIC_DIR) );
+// router.use( express.static(PUBLIC_DIR) );
 
 router.use( cleanRoutes(staticRoutes, PUBLIC_DIR) );
 
 // fallback: route not found
-router.get('/*', (req, res) => {
-    res.status(404).sendFile(path.join(PUBLIC_DIR, '/404.html'));
-})
+// router.get('/*', (req, res) => {
+//     res.status(404).sendFile(path.join(PUBLIC_DIR, '/404.html'));
+// })
 
 module.exports = router;

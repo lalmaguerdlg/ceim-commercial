@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
     "sass": "sass --watch static/scss/style.scss static/css/style.css",
-    "dev": "nodemon server/server.js -- ",
-    "emails": "nodemon server/index.js -- ",
-    "start": "node server/server.js"
+    "dev": "nodemon server.js -- ",
+    "emails": "nodemon index.js -- ",
+    "start": "NODE_ENV=production node server.js",
+    "build": "next build"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
@@ -16,8 +17,11 @@
     "minimist": "^1.2.5",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
+    "next": "^10.0.0",
     "nodemailer": "^6.4.13",
     "pug": "^3.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "yup": "^0.29.3"
   },
   "devDependencies": {

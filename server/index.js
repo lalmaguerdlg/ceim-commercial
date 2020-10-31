@@ -4,7 +4,7 @@ const { QUEUE_WORKER_COUNT, SMTP_USER, QUEUE_MAX_ATTEMPTS } = require('./env');
 
 
 if(cluster.isMaster) {
-    require('./db')();
+    require('../db')();
     const { Email, FailedEmail } = require('./models/email');
     const WORKER_COUNT = Math.min(require('os').cpus().length, QUEUE_WORKER_COUNT);    
     const express = require('express');
@@ -97,7 +97,7 @@ if(cluster.isMaster) {
     }
 }
 else {
-    require('./db')({buffer: true});
+    require('../db')({buffer: true});
     const { Email, FailedEmail } = require('./models/email');
     const pug = require('pug');
     const path = require('path');
