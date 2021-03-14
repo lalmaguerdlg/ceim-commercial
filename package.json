@@ -5,12 +5,13 @@
   "license": "MIT",
   "scripts": {
     "sass": "sass --watch static/scss/style.scss static/css/style.css",
-    "dev": "nodemon server.js -- ",
-    "emails": "nodemon index.js -- ",
+    "dev": "nodemon server/server.js -- ",
+    "emails": "nodemon server/index.js -- ",
     "start": "NODE_ENV=production node server.js",
     "build": "next build"
   },
   "dependencies": {
+    "@brainhubeu/react-carousel": "^2.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.1.1",
@@ -20,11 +21,16 @@
     "next": "^10.0.0",
     "nodemailer": "^6.4.13",
     "pug": "^3.0.0",
+    "pure-react-carousel": "^1.27.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "yup": "^0.29.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "@types/node": "^14.14.34",
+    "@types/react": "^17.0.3",
+    "nodemon": "^2.0.4",
+    "typescript": "^4.2.3",
+    "typescript-plugin-css-modules": "^3.2.0"
   }
 }

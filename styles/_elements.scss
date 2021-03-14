@@ -1113,7 +1113,7 @@ h6 {
 }
 
 .primary-checkbox input:checked + label {
-  background: url(../img/elements/primary-check.png) no-repeat center
+  background: url(../public/img/elements/primary-check.png) no-repeat center
     center/cover;
   border: none;
 }
@@ -1152,7 +1152,7 @@ h6 {
 }
 
 .confirm-checkbox input:checked + label {
-  background: url(../img/elements/success-check.png) no-repeat center
+  background: url(../public/img/elements/success-check.png) no-repeat center
     center/cover;
   border: none;
 }
@@ -1196,7 +1196,7 @@ h6 {
 }
 
 .disabled-checkbox input:checked + label {
-  background: url(../img/elements/disabled-check.png) no-repeat center
+  background: url(../public/img/elements/disabled-check.png) no-repeat center
     center/cover;
   border: none;
 }
@@ -1235,7 +1235,7 @@ h6 {
 }
 
 .primary-radio input:checked + label {
-  background: url(../img/elements/primary-radio.png) no-repeat center
+  background: url(../public/img/elements/primary-radio.png) no-repeat center
     center/cover;
   border: none;
 }
@@ -1274,7 +1274,7 @@ h6 {
 }
 
 .confirm-radio input:checked + label {
-  background: url(../img/elements/success-radio.png) no-repeat center
+  background: url(../public/img/elements/success-radio.png) no-repeat center
     center/cover;
   border: none;
 }
@@ -1326,7 +1326,7 @@ h6 {
   padding: 0px;
 }
 .disabled-radio input:checked + label {
-  background: url(../img/elements/disabled-radio.png) no-repeat center
+  background: url(../public/img/elements/disabled-radio.png) no-repeat center
     center/cover;
   border: none;
 }

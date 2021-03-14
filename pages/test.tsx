@@ -1,6 +1,6 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import { useState } from 'react'
+// import Head from 'next/head'
+import '../styles/Home.module.scss'
+import React, { useState } from 'react'
 
 export default function Home() {
   const [ count, setCount ] = useState(0);

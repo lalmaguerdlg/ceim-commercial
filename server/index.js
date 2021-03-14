@@ -122,7 +122,6 @@ else {
     }
 
     async function processEmail(email) {
-        console.log(email);
         const template = templates[email.template.name];
         const data = email.template.data;
         try {
@@ -143,18 +142,6 @@ else {
         await email.save();
     }
 
-    async function getNextEmail() {
-        let email = await Email.findOneAndUpdate(
-            { status: 'new' }, 
-            { status: 'processing', last_attempt_at: Date.now(), $inc: { attempts: 1 } }, 
-            { sort: { created_at: 1 } }
-        ).exec();
-        // if ( email ) return email;
-        return email;
-
-        // let email = await Email.findOneAndUpdate({ status: 'Failed' })
-    }
-
     async function gcFailedEmails() {
         const email = await Email.findOneAndUpdate(
             { status: 'failed' },
@@ -162,19 +149,7 @@ else {
             { sort: { last_attempt_at: 1 } }
         ).exec();
 
-        if (email) {
-            if (email.attempts < QUEUE_MAX_ATTEMPTS) {
-                email.status = 'new';
-                await email.save();
-            }
-            else {
-                const swap = new FailedEmail(email.toObject());
-                await email.remove();
-                await swap.save();
-            }
-            return true;
-        }
-        return false;
+        return gcEmail(email);
     }
 
     async function gcStuckEmails() {
@@ -184,6 +159,11 @@ else {
             { sort: { last_attempt_at: 1 } }
         ).exec();
 
+        return gcEmail(email);
+    }
+
+    async function gcEmail(email) {
+        let handled = false;
         if (email) {
             if (email.attempts < QUEUE_MAX_ATTEMPTS) {
                 email.status = 'new';
@@ -193,17 +173,22 @@ else {
                 const swap = new FailedEmail(email.toObject());
                 await email.remove();
                 await swap.save();
-            }
-            return true;
+            }    
+            handled = true;
         }
-        return false;
+        return handled;
     }
 
     async function doWork() {
         let timeoutTime = 50;
         try {
 
-            const email = await getNextEmail();
+            const email = await Email.findOneAndUpdate(
+                { status: 'new' }, 
+                { status: 'processing', last_attempt_at: Date.now(), $inc: { attempts: 1 } }, 
+                { sort: { created_at: 1 } }
+            ).exec();
+
             if(email){
                 await processEmail(email);
             } else {

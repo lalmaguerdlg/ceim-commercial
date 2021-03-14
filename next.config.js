@@ -2,6 +2,8 @@ const { redirect } = require("next/dist/next-server/server/api-utils");
 
 const { NODE_ENV } = require('./server/env');
 
+const webpack = require('webpack');
+
 module.exports = {
     async headers() {
         const cacheableDirs = [ 'vendors', 'img', 'fonts' ]
@@ -22,5 +24,15 @@ module.exports = {
         return [
             ...cacheControl
         ]
+    },
+    webpack: (config, { dev }) => {
+        config.plugins.push(
+            new webpack.ProvidePlugin({
+                '$': 'jquery',
+                'jQuery': 'jquery',
+                'window.jQuery': 'jquery'
+            })
+        )
+        return config;
     }
 }
