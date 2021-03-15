@@ -1,13 +1,21 @@
 import React from 'react';
 
-type IconProps = {
+type IconType = 'brands' | 'solid';
+
+interface IconProps {
     className?: string,
     icon: string,
-}
+    type?: IconType,
+};
 
-function Icon({ className = "", icon }: IconProps) {
+const types = {
+    'brands': 'fab',
+    'solid': 'fas',
+} as const;
+
+function Icon({ className = "", icon, type = 'solid' }: IconProps) {
     return (
-        <i className={`fab fa-${icon} ${className}`}></i>
+        <i className={`${types[type]} fa-${icon} ${className}`}></i>
     )
 }
 

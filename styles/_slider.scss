@@ -1,0 +1,32 @@
+.carousel-container {
+    display: flex;
+    align-items: center;
+    .button.icon {
+        border: none;
+        background: none;
+    }
+
+    .slider {
+        flex: 1 0;
+        padding: 8px;
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .slide {
+        display: flex;
+        justify-content: center;
+    }
+
+    .carousel__slide--focused {
+        .slide__item {
+            outline-style: auto;
+            outline-color: -webkit-focus-ring-color;
+        }
+        .carousel__slide-focus-ring {
+            display: none;
+        }
+    }
+
+}
