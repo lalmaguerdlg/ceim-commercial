@@ -4,6 +4,11 @@ import { useRouter } from 'next/router';
 import { useScrollOffset } from './util/hooks';
 import type { PageTheme } from './Page';
 
+/*
+    TODO: Remove boostrap and jquery to handle the movile version of this navbar
+    TODO: Make style adjustments to the navbar depending on the theme prop
+*/
+
 
 interface NavbarRoute {
     route: string 
