@@ -5,12 +5,12 @@ import dynamic from 'next/dynamic';
 import Page from '../components/Page';
 import type { FeaturedCourse } from '../components/Home/HomeCarousel';
 import RegistrationForm from '../components/Home/RegistrationForm';
+import OverlayRenderer from '../components/Overlay/OverlayRenderer';
 
 const ClientHomeCarousel = dynamic(
   () => import('../components/Home/HomeCarousel'),
   { ssr: false },
 );
-
 
 function HomeBanner() {
   return (
@@ -196,6 +196,7 @@ export default function Home() {
 
   return (
     <Page theme="dark">
+      
       <HomeBanner/>
 
       <FeatureSection/>
@@ -206,55 +207,12 @@ export default function Home() {
 
       <RegistrationSection />
 
-      {/* <!--================Contact Success and Error message Area =================--> */}
-      <div id="success" className="modal modal-message fade" role="dialog">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <i className="ti-close"></i>
-              </button>
-              <h2>¡Gracias!</h2>
-              <p>Tu mensaje ha sido enviado correctamente</p>
-              <p>Nos pondremos en contacto contigo</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <!-- Modals error --> */}
-
-      <div id="error" className="modal modal-message fade" role="dialog">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <i className="ti-close"></i>
-              </button>
-              <h2>Una disculpa</h2>
-              <p>Algo ha salido mal.</p>
-              <p>Por favor, vuelve a intenarlo más tarde</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <!--================End Contact Success and Error message Area =================--> */}
-
       <nav className="floating-button">
         <a href="#" className="tertiary-btn icon-btn wapp-button ml-sm-3 ml-0 wapp-redirect" wapp-text="Buen día, me interesa conocer más sobre los cursos">
           <i className="fab fa-whatsapp"></i>
         </a>
       </nav>
+
     </Page>
   )
 }
