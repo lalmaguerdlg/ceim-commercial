@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 
 export function isClientSide() {
     return typeof window !== 'undefined';
@@ -8,7 +8,7 @@ export function isServerSide() {
     return typeof window === 'undefined';
 }
 
-export function extractChildrenFromSlot( slot : any ) : ReactNode {
+export function extractFromSlot( slot : any ) : ReactNode {
     let result = null;
     if (!slot?.props?.children) { return null }
 
@@ -35,7 +35,7 @@ export function getSlotFromChildren( slot : string, children : any) : ReactNode 
             console.warn(`There is more than one slot with the name ${slot}`)
         }
         else {
-            result = extractChildrenFromSlot(filtered[0]);
+            result = extractFromSlot(filtered[0]);
         }
     } 
     else if (typeof children === 'object') {
@@ -67,4 +67,28 @@ export function filterSlotsFromChildren( children : any ) : ReactNode {
     }
 
     return result;
+}
+
+
+export type ComponentClass = string | { [key:string] : boolean }
+export function getComponentClases(clases : ComponentClass[]) : string {
+    
+    const result = clases.map((current) => {
+        let result = '';
+        if ( typeof current === 'object' ) {
+            result = Object.keys(current)
+                .filter((key) => current[key])
+                .join(' ');
+        }
+        else {
+            result = current
+        }
+        return result;
+    }).join(' ');
+
+    return result;
+}
+
+export function useComponentClases(clases : ComponentClass[], dependencies ?: any[]) {
+    return useMemo(() => getComponentClases(clases), dependencies);
 }

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import Icon from '../Icon';
@@ -69,7 +69,6 @@ export function ClientHomeCarousel({ courses = [] }: HomeCarouselProps) {
     }, [breakpoint]);
 
     const showButtons = courses.length > visibleSlides;
-
 
     return (
         <CarouselProvider
