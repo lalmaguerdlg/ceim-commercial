@@ -1,44 +1,30 @@
 import React, { FC, useState } from 'react';
 import Modal, { ModalProps } from '../Overlay/Modal';
+import { createUUID } from '../util/utils';
 
 export interface SuccesModalProps extends ModalProps { };
 export const SuccesModal : FC<SuccesModalProps> = ({ isOpen, onRequestClose }) => {
+
+    const [count, setCount] = useState(0);
 
     return (
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
-            backdrop>
+            backdrop
+            className="">
             <slot name="header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={onRequestClose}>
-                    <i className="ti-close"></i>
-                </button>
+                <h2>¡Gracias!</h2>
             </slot>
             
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h2>¡Gracias!</h2>
-                        <p>Tu mensaje ha sido enviado correctamente</p>
-                        <p>Nos pondremos en contacto contigo</p>
-                    </div>
-                </div>
-            </div>
+            <p>Tu mensaje ha sido enviado correctamente</p>
+            <p>Nos pondremos en contacto contigo</p>
+
+            <slot name="footer">
+                <button onClick={() => setCount(c => c + 1)}>Increment</button>
+                <h2>{count}</h2>
+            </slot>
         </Modal>
-        // <div id="success" className="modal modal-message fade" role="dialog">
-        //     <div className="modal-dialog">
-        //         <div className="modal-content">
-        //             <div className="modal-header">
-        //                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-        //                     <i className="ti-close"></i>
-        //                 </button>
-        //                 <h2>¡Gracias!</h2>
-        //                 <p>Tu mensaje ha sido enviado correctamente</p>
-        //                 <p>Nos pondremos en contacto contigo</p>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
     );
 }
 

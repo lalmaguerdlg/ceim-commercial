@@ -8,20 +8,20 @@ export function isServerSide() {
     return typeof window === 'undefined';
 }
 
-export function extractFromSlot( slot : any ) : ReactNode {
+export function extractChildren( node : any ) : ReactNode {
     let result = null;
-    if (!slot?.props?.children) { return null }
+    if (!node?.props?.children) { return null }
 
-    if (Array.isArray(slot.props.children) || (typeof slot.props.children === 'object')) {
-        result = slot.props.children
+    if (Array.isArray(node.props.children) || (typeof node.props.children === 'object')) {
+        result = node.props.children
     }
-    else if(typeof slot.props.children === 'string'){
-        result = slot.props.children;
+    else if(typeof node.props.children === 'string'){
+        result = node.props.children;
     }
     return result;
 }
 
-export function getSlotFromChildren( slot : string, children : any) : ReactNode {
+export function getSlot(slot : string, children : any) : ReactNode {
     let result = null;
 
     if (!children) {
@@ -35,7 +35,7 @@ export function getSlotFromChildren( slot : string, children : any) : ReactNode 
             console.warn(`There is more than one slot with the name ${slot}`)
         }
         else {
-            result = extractFromSlot(filtered[0]);
+            result = extractChildren(filtered[0]);
         }
     } 
     else if (typeof children === 'object') {
@@ -47,7 +47,7 @@ export function getSlotFromChildren( slot : string, children : any) : ReactNode 
     return result;
 }
 
-export function filterSlotsFromChildren( children : any ) : ReactNode {
+export function filterSlots( children : any ) : ReactNode {
     let result = null;
 
     if (!children) {
@@ -73,22 +73,30 @@ export function filterSlotsFromChildren( children : any ) : ReactNode {
 export type ComponentClass = string | { [key:string] : boolean }
 export function getComponentClases(clases : ComponentClass[]) : string {
     
-    const result = clases.map((current) => {
-        let result = '';
-        if ( typeof current === 'object' ) {
-            result = Object.keys(current)
-                .filter((key) => current[key])
-                .join(' ');
-        }
-        else {
-            result = current
-        }
-        return result;
-    }).join(' ');
+    const result = clases
+        .filter((c) => c !== '')
+        .map((current) => {
+            let result = '';
+            if ( typeof current === 'object' ) {
+                result = Object.keys(current)
+                    .filter((key) => current[key])
+                    .join(' ');
+            }
+            else {
+                result = current
+            }
+            return result;
+        }).join(' ');
 
     return result;
 }
 
-export function useComponentClases(clases : ComponentClass[], dependencies ?: any[]) {
-    return useMemo(() => getComponentClases(clases), dependencies);
+export function createUUID() : string {
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
 }

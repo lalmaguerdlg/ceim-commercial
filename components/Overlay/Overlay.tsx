@@ -1,12 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import ReactDOM from 'react-dom';
-import { isServerSide } from '../util/utils';
+import { createUUID, isServerSide } from '../util/utils';
 
 export interface OverlayProps { 
+    uid ?: string
     shouldDisplay : boolean
 };
 
-export const Overlay : FC<OverlayProps> = ({ shouldDisplay = false, children }) => {
+export const Overlay : FC<OverlayProps> = ({ uid, shouldDisplay = false, children }) => {
+
+    const uniqueId = useMemo(() => uid ?? createUUID(), []);
+
     if ( isServerSide() ) {
         throw new Error('Overlay does not currently supports SSR');
     }
@@ -17,7 +21,7 @@ export const Overlay : FC<OverlayProps> = ({ shouldDisplay = false, children }) 
     }
 
     const content = shouldDisplay ? (
-        <div className="ceim-overlay">
+        <div key={uniqueId} uid={uniqueId} className="ceim-overlay">
             {children}
         </div>
     ) : null;

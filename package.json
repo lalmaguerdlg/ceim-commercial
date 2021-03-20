@@ -7,7 +7,7 @@
     "sass": "sass --watch static/scss/style.scss static/css/style.css",
     "dev": "nodemon server/server.js -- ",
     "emails": "nodemon server/index.js -- ",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node server/server.js",
     "build": "next build"
   },
   "dependencies": {

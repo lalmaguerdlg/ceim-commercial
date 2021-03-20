@@ -1,6 +1,13 @@
 .ceim-overlay {
     position: fixed;
     z-index: 99;
+    inset: 0px;
+    &.backdrop {
+        background-color: rgba(0, 0, 0, 0.50);
+    }
+    &.blur {
+        backdrop-filter: blur(2px);
+    }
 }
 
 .underlay {
@@ -9,6 +16,7 @@
     &.backdrop {
         background-color: rgba(0, 0, 0, 0.50);
     }    
+    
 }
 
 
@@ -16,15 +24,35 @@
 .ceim-modal {
     position: absolute;
     inset: 50% auto auto 50%;
-    border: 1px solid rgb(204, 204, 204);
-    background: rgb(255, 255, 255);
-    overflow: auto;
-    border-radius: 4px;
-    outline: none;
-    padding: 20px;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 
     max-width: 80%;
     max-height: 80%;
+    .modal__content {
+        border: 1px solid rgb(204, 204, 204);
+        background: rgb(255, 255, 255);
+        border-radius: 4px;
+        overflow: auto;
+        outline: none;
+        
+        .modal__header, .modal__footer {
+            padding: 24px;
+        }
+
+        .modal__body {
+            padding: 8px 24px;
+        }
+
+        .modal__header {
+            display: flex;
+            .modal__header_content {
+                flex: 1
+            }
+        }
+
+        .modal__footer {
+            border-top: 1px solid rgb(204, 204, 204);
+        }
+    }
 }

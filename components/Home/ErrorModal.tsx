@@ -1,23 +1,23 @@
 import React, { FC } from 'react';
+import Modal, { ModalProps } from '../Overlay/Modal';
 
-export interface ErrorModalProps { };
+export interface ErrorModalProps extends ModalProps { };
 
-export const ErrorModal : FC<ErrorModalProps> = ({ children }) => {
+export const ErrorModal : FC<ErrorModalProps> = ({ isOpen, onRequestClose, children }) => {
     return (
-        <div id="error" className="modal modal-message fade" role="dialog">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <i className="ti-close"></i>
-                        </button>
-                        <h2>Una disculpa</h2>
-                        <p>Algo ha salido mal.</p>
-                        <p>Por favor, vuelve a intenarlo más tarde</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            backdrop
+            className="">
+            <slot name="header">
+                <h2>Una disculpa</h2>
+            </slot>
+            
+            <p>Algo ha salido mal.</p>
+            <p>Por favor, vuelve a intenarlo más tarde</p>
+
+        </Modal>
     );
 }
 

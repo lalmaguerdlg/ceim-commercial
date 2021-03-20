@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import throttle from 'lodash.throttle';
-import { isClientSide, isServerSide } from "./utils";
+import { ComponentClass, filterSlots, getComponentClases, getSlot, isClientSide, isServerSide } from "./utils";
 
 type Breakpoint = 'sm' | 'md' | 'lg';
 
@@ -44,4 +44,16 @@ export function useScrollOffset() : number {
     }, []);
 
     return offsetY;
+}
+
+export function useComponentClases(clases : ComponentClass[], dependencies ?: any[]) {
+    return useMemo(() => getComponentClases(clases), dependencies);
+}
+
+export function useSlot(slot : string, children : ReactNode) {
+    return useMemo(() => getSlot(slot, children), [slot, children]);
+}
+
+export function useFilterSlots(children : ReactNode) {
+    return useMemo(() => filterSlots(children), [children]);
 }

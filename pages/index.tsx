@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
-
 import dynamic from 'next/dynamic';
 import Page from '../components/Page';
 import type { FeaturedCourse } from '../components/Home/HomeCarousel';
@@ -8,11 +7,6 @@ import RegistrationForm from '../components/Home/RegistrationForm';
 
 const ClientHomeCarousel = dynamic(
   () => import('../components/Home/HomeCarousel'),
-  { ssr: false },
-);
-
-const SuccesModal = dynamic(
-  () => import('../components/Home/SuccessModal'),
   { ssr: false },
 );
 
@@ -167,7 +161,7 @@ function RegistrationSection() {
             </div>
           </div>
           <div className="col-lg-4 offset-lg-1">
-            <RegistrationForm/>
+            <RegistrationForm />
           </div>
         </div>
       </div>
@@ -198,8 +192,6 @@ export default function Home() {
     },
   ]
 
-  const [isSuccessOpen, setIsSuccessOpen] = useState(true);
-
   return (
     <Page theme="dark">
       
@@ -212,8 +204,6 @@ export default function Home() {
       <PopularCoursesSection courses={featuredCourses} />
 
       <RegistrationSection />
-
-      <SuccesModal isOpen={isSuccessOpen} onRequestClose={() => setIsSuccessOpen(false)}/>
 
       <nav className="floating-button">
         <a href="#" className="tertiary-btn icon-btn wapp-button ml-sm-3 ml-0 wapp-redirect" wapp-text="Buen día, me interesa conocer más sobre los cursos">

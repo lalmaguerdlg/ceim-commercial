@@ -1,11 +1,27 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+const SuccesModal = dynamic(
+    () => import('./SuccessModal'),
+    { ssr: false },
+);
+const ErrorModal = dynamic(
+    () => import('./ErrorModal'),
+    { ssr: false },
+);
+
 
 export interface RegistrationFormProps { };
 
 export const RegistrationForm : FC<RegistrationFormProps> = ({ children }) => {
+    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+    const [isErrorOpen, setIsErrorOpen] = useState(false);
+
 
     function handleSubmit(e) {
         e.preventDefault();
+        setIsSuccessOpen(true);
+        setIsErrorOpen(true);
         console.log(e);
     }
 
@@ -42,6 +58,9 @@ export const RegistrationForm : FC<RegistrationFormProps> = ({ children }) => {
                     </div>
                 </div>
             </form>
+            { isSuccessOpen ? <SuccesModal isOpen={isSuccessOpen} onRequestClose={() => setIsSuccessOpen(false)} /> : null }
+            {/* <SuccesModal isOpen={isSuccessOpen} onRequestClose={() => setIsSuccessOpen(false)} /> */}
+            <ErrorModal isOpen={isErrorOpen} onRequestClose={() => setIsErrorOpen(false)} />
         </div>
     );
 }
