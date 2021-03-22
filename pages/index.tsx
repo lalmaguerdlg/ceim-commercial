@@ -2,10 +2,12 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Page from '../components/Page';
-import type { FeaturedCourse } from '../components/Home/HomeCarousel';
+import type { FeaturedCourse, HomeCarouselProps } from '../components/Home/HomeCarousel';
 import RegistrationForm from '../components/Home/RegistrationForm';
+import WhatsappButton from '../components/WhatsappButton';
+import FloatingButton from '../components/FloatingButton';
 
-const ClientHomeCarousel = dynamic(
+const ClientHomeCarousel = dynamic<HomeCarouselProps>(
   () => import('../components/Home/HomeCarousel'),
   { ssr: false },
 );
@@ -27,9 +29,7 @@ function HomeBanner() {
                 <div className="banner_actions">
                   <a href="#learn_more" className="primary-btn2 mb-3 mb-sm-0">Conoce más</a>
                   <a href="contact.html" className="primary-btn ml-sm-3 mb-3 mb-sm-0 ml-0">Contactanos</a>
-                  <a href="#" className="tertiary-btn icon-btn wapp-button ml-sm-3 ml-0 wapp-redirect" wapp-text="Buen día, me interesa conocer más sobre los cursos">
-                    <i className="fab fa-whatsapp"></i>
-                  </a>
+                  <WhatsappButton className="tertiary-btn icon-btn ml-sm-3 ml-0" message="Buen día, me interesa conocer más sobre los cursos" />
                 </div>
               </div>
             </div>
@@ -169,8 +169,29 @@ function RegistrationSection() {
   )
 }
 
-export default function Home() {
+export function Home({ featuredCourses }) {
+  return (
+    <Page theme="dark">
+      
+      <HomeBanner/>
 
+      <FeatureSection/>
+
+      <SectionSplitter/>
+
+      <PopularCoursesSection courses={featuredCourses} />
+
+      <RegistrationSection />
+
+      <FloatingButton offsetY={310}>
+        <WhatsappButton className="tertiary-btn icon-btn ml-sm-3 ml-0" message="Buen día, me interesa conocer más sobre los cursos"/>
+      </FloatingButton>
+
+    </Page>
+  )
+}
+
+export async function getStaticProps() {
   const featuredCourses : FeaturedCourse[] = [
     { 
       category: 'Tecnología',
@@ -190,27 +211,9 @@ export default function Home() {
       description: 'Formamos profesionistas de la asistencia, el auxilio y la colaboración administrativa a nivel ejecutivo',
       thumbnail: 'img/courses/c3.jpg',
     },
-  ]
+  ];
 
-  return (
-    <Page theme="dark">
-      
-      <HomeBanner/>
-
-      <FeatureSection/>
-
-      <SectionSplitter/>
-
-      <PopularCoursesSection courses={featuredCourses} />
-
-      <RegistrationSection />
-
-      <nav className="floating-button">
-        <a href="#" className="tertiary-btn icon-btn wapp-button ml-sm-3 ml-0 wapp-redirect" wapp-text="Buen día, me interesa conocer más sobre los cursos">
-          <i className="fab fa-whatsapp"></i>
-        </a>
-      </nav>
-
-    </Page>
-  )
+  return { props: { featuredCourses } };
 }
+
+export default Home;

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 import Navbar from './Navbar';
+import WhatsappButton from './WhatsappButton';
 
 const routes = [
     { 
@@ -32,7 +33,7 @@ function Footer() {
                     </p>
                     <div className="col-lg-4 col-sm-12 footer-social">
                         <a href="https://www.facebook.com/centrodeestudiosintensivo"><i className="ti-facebook"></i></a>
-                        <a href="#" className="wapp-redirect" wapp-text="Buen día, me interesa conocer más sobre los cursos"><i className="fab fa-whatsapp"></i></a>
+                        <WhatsappButton message="Buen día, me interesa conocer más sobre los cursos" />
                     </div>
                 </div>
             </div>
