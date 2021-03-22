@@ -55,6 +55,10 @@ server.get('/contacts', async (req, res, next) => {
 });
 
 // server.use('/', web );
+server.get('/*.html', (req, res) => {
+    const redirectUrl = req.path.replace('.html', '');
+    res.redirect(redirectUrl);
+});
 server.use('/mail', mailer );
 
 server.all('*', (req, res) => {
