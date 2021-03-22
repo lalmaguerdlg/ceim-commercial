@@ -1,10 +1,9 @@
-import React, { FC, MouseEvent } from 'react';
+import React, { FC } from 'react';
 import { useComponentClases, useFilterSlots, useSlot } from '../util/hooks';
-import { createUUID } from '../util/utils';
-import Overlay from './Overlay';
-import Underlay from './Underlay';
 
 import ReactModal from 'react-modal';
+
+ReactModal.setAppElement('#__next');
 
 function ModalHeader({ children, closeButton = true, onRequestClose }) {
 
@@ -47,10 +46,11 @@ export interface ModalProps {
     isOpen : boolean
     onRequestClose ?: () => void;
     backdrop ?: boolean
+    blur ?: boolean
     closeButton ?: boolean
     className ?: string
 };
-export const Modal : FC<ModalProps> = ({ className = '', isOpen = false, onRequestClose, backdrop = false, closeButton = true, children }) => {
+export const Modal : FC<ModalProps> = ({ className = '', isOpen = false, onRequestClose, backdrop = false, blur = false, closeButton = true, children }) => {
     const headerSlot = useSlot('header', children);
     const bodySlot = useFilterSlots(children);
     const footerSlot = useSlot('footer', children);
@@ -58,8 +58,8 @@ export const Modal : FC<ModalProps> = ({ className = '', isOpen = false, onReque
     const componentClases = useComponentClases(['ceim-modal', className], [className]);
 
     const overlayClases = useComponentClases([
-        'ceim-overlay', { backdrop }, 'blur'
-    ], [backdrop]);
+        'ceim-overlay', { backdrop, blur }
+    ], [backdrop, blur]);
 
     return (
         <ReactModal 

@@ -9,7 +9,8 @@ export const ErrorModal : FC<ErrorModalProps> = ({ isOpen, onRequestClose, child
             isOpen={isOpen}
             onRequestClose={onRequestClose}
             backdrop
-            className="">
+            blur
+            className="error-modal">
             <slot name="header">
                 <h2>Una disculpa</h2>
             </slot>
