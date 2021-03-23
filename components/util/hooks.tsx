@@ -33,7 +33,7 @@ export function useBreakpoint() : Breakpoint {
 }
 
 export function useScrollOffset() : number {
-    const [offsetY, setOffsetY] = useState(isClientSide() ? window.scrollY : 0);
+    const [offsetY, setOffsetY] = useState(0);
 
     useEffect(() => {
         const handleScroll = throttle(() => {

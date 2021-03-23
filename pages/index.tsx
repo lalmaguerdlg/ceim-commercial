@@ -1,15 +1,20 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Page from '../components/Page';
 import type { FeaturedCourse, HomeCarouselProps } from '../components/Home/HomeCarousel';
 import RegistrationForm from '../components/Home/RegistrationForm';
 import WhatsappButton from '../components/WhatsappButton';
 import FloatingButton from '../components/FloatingButton';
+import { ServerHomeCarousel } from '../components/Home/HomeCarousel';
+import { FeaturedProvider, useFeaturedCourses } from '../components/Home/featuredHooks';
 
 const ClientHomeCarousel = dynamic<HomeCarouselProps>(
   () => import('../components/Home/HomeCarousel'),
-  { ssr: false },
+  { 
+    ssr: false,
+    loading: () => <ServerHomeCarousel/>
+  },
 );
 
 function HomeBanner() {
@@ -104,10 +109,8 @@ function SectionSplitter() {
   )
 }
 
-interface PopularCoursesSectionProps {
-  courses: FeaturedCourse[]
-}
-function PopularCoursesSection({ courses = [] } : PopularCoursesSectionProps) {
+function PopularCoursesSection() {
+  const courses = useFeaturedCourses();
   return (
     <div className="popular_courses section_gap_top">
       <div className="container">
@@ -179,7 +182,9 @@ export function Home({ featuredCourses }) {
 
       <SectionSplitter/>
 
-      <PopularCoursesSection courses={featuredCourses} />
+      <FeaturedProvider courses={featuredCourses}>
+        <PopularCoursesSection/>
+      </FeaturedProvider>
 
       <RegistrationSection />
 
@@ -196,7 +201,7 @@ export async function getStaticProps() {
     { 
       category: 'Tecnología',
       name: 'Computación',
-      description: "One make creegggpeth magggn bearing their one firmament won't fowl meat over sea",
+      description: "One make bearing their one firmament won't fowl meat over sea",
       thumbnail: 'img/courses/c1.jpg',
     },
     { 

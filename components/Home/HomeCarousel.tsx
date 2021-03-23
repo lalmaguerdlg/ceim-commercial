@@ -6,6 +6,7 @@ import Icon from '../Icon';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { useBreakpoint } from '../util/hooks';
+import { useFeaturedCourses } from './featuredHooks';
 
 export type FeaturedCourse = {
     category: string,
@@ -93,6 +94,17 @@ export function ClientHomeCarousel({ courses = [] }: HomeCarouselProps) {
                 { showButtons ? <ButtonNext className="button icon"><Icon type="solid" icon="chevron-right"/></ButtonNext> : null }
             </div>
         </CarouselProvider>
+    )
+}
+
+export function ServerHomeCarousel() {
+    const courses = useFeaturedCourses();
+    return (
+        <div className="server-carousel-container">
+            { courses.map((course, i) => (
+                <FeaturedCourseCard key={i} course={course} className="slide__item" />
+            ))}
+        </div>
     )
 }
 
