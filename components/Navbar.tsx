@@ -61,13 +61,13 @@ export const Navbar : FC<NavbarProps> = ({ routes = [], theme = 'light' }) => {
     const renderRoutes = useMemo(() => <NavbarList routes={routes}/>, [routes]);
 
     return (
-        <header className={`header_area ${isSticky ? 'navbar_fixed' : ''}`}>
+        <header className={`header_area ${theme == 'light' ? 'white-header' : ''} ${isSticky ? 'navbar_fixed' : ''}`}>
             <div ref={headerRef} className="main_menu">
-                <nav className={`navbar navbar-expand-lg navbar-${theme}`}>
+                <nav className={`navbar navbar-expand-lg`}>
                     <div className="container">
                         {/* <!-- Brand and toggle get grouped for better mobile display --> */}
                         <Link href="/">
-                            <a className="navbar-brand logo_h">
+                            <a className={`navbar-brand logo_h ${theme == 'light' ? 'white-logo' : ''}`}>
                                 <h2> <span className="logo-highlight">CE</span>IM </h2>
                             </a>
                         </Link>
